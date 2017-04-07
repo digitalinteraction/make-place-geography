@@ -8,7 +8,7 @@ services:
   web:
     build: .
     ports:
-      - 3000
+      - 3000:3000
     links:
       - mysql
     depends_on:

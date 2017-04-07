@@ -4,6 +4,6 @@ node_modules/
 
 /api/
 
-/web/secrets
+/web/secrets.env
 
 /logs/

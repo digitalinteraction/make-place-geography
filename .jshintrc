@@ -5,6 +5,9 @@
     "mocha": "BSD",
     "globals": {
         "express": true,
-        "_": true
+        "_": true,
+        "utils": true,
+        "mysql": true,
+        "sql": true
     }
 }

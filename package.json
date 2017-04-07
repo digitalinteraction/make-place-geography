@@ -11,7 +11,7 @@
   "scripts": {
     "coverage": "node_modules/.bin/nyc --reporter=html node_modules/.bin/mocha",
     "coverage-summary": "node_modules/.bin/nyc --reporter=text-summary node_modules/.bin/mocha",
-    "start": "node nodemon web/server.js",
+    "start": "node node_modules/.bin/nodemon web/server.js",
     "test": "mocha"
   },
   "dependencies": {
@@ -25,6 +25,7 @@
     "lodash": "^4.17.4",
     "mocha": "^3.2.0",
     "moment": "^2.18.1",
+    "mysql": "^2.13.0",
     "nodemon": "^1.11.0",
     "require-directory": "^2.1.1",
     "sails-memory": "^0.10.7",

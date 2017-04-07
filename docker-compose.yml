@@ -1,0 +1,36 @@
+version: '2'
+
+volumes:
+  database_data:
+    driver: local
+
+services:
+  web:
+    build: .
+    ports:
+      - 3000
+    links:
+      - mysql
+    depends_on:
+      - mysql
+    volumes:
+      - ./web:/app/web
+      - ./test:/app/test
+      - ./logs:/app/logs
+    env_file:
+      - web/secrets.env
+    environment:
+      SQL_URL: 'mysql://user:secret@mysql/geo-api'
+      NODE_ENV: 'dev'
+  
+  mysql:
+    image: mysql:latest
+    ports:
+      - 3306:3306
+    volumes:
+      - database_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: geo-api
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret

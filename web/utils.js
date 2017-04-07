@@ -2,18 +2,13 @@
 
 
 
+
 class Utils {
     
     get pool() { return this._pool; }
     
     constructor(sql) {
         this._pool = mysql.createPool(sql)
-    }
-    
-    
-    
-    escape(string) {
-        return this.pool.escape(string)
     }
     
     

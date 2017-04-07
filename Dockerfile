@@ -15,7 +15,7 @@ RUN npm install --silent
 COPY web /app/web
 
 
-RUN node node_modules/.bin/apidoc -i web/ -o api/ --silent
+RUN node node_modules/.bin/apidoc -i web/ -o docs/ --silent
 
 
 CMD node node_modules/.bin/nodemon --watch web web/server.js

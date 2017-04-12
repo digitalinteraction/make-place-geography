@@ -17,11 +17,10 @@ services:
       - ./web:/app/web
       - ./test:/app/test
       - ./logs:/app/logs
-    env_file:
-      - web/secrets.env
     environment:
       SQL_URL: 'mysql://user:secret@mysql/geo-api'
       NODE_ENV: 'dev'
+      API_PORT: 3000
   
   mysql:
     image: mysql:latest

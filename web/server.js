@@ -101,5 +101,6 @@ app.use("/geo", geo(utils))
 
 
 // Start express
-app.listen(3000)
-console.log("- Setup on http://localhost:3000")
+const port = process.env.API_PORT || 3000
+app.listen(port)
+console.log("- Setup on http://localhost:" + port)

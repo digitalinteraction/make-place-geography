@@ -1,4 +1,4 @@
-FROM node:7.3-alpine
+FROM node:7.9-alpine
 
 
 RUN mkdir -p /app
@@ -18,4 +18,4 @@ COPY web /app/web
 RUN node node_modules/.bin/apidoc -i web/ -o docs/ --silent
 
 
-CMD node node_modules/.bin/nodemon --watch web web/server.js
+CMD node node_modules/.bin/nodemon --watch web --harmony-async-await web/server.js

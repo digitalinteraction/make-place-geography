@@ -1,12 +1,9 @@
-"use strict"
-
-
 
 module.exports = function(utils) {
     
     let router = new express.Router()
     
-    let allowedGeometries = [ "POINT" ]
+    let allowedGeometries = [ "POINT", "LINESTRING" ]
     
     
     /**
@@ -167,6 +164,33 @@ module.exports = function(utils) {
                 geomString = `POINT(${geom.x} ${geom.y})`
             }
         }
+        
+        
+        // Validate & parse linestring geometries
+        if (geom.type === "LINESTRING") {
+            if (!geom.points || !_.isArray(geom.points) || geom.points.length === 0) {
+                errors.push(`Please provide an array of points for your LINESTRING`)
+            }
+            else {
+                
+                geomString = `LINESTRING(`
+                
+                // Loop each point, checking it is a valid point
+                _.each(geom.points, (point, i) => {
+                    
+                    if (!point.x || !point.y) {
+                        errors.push(`geom.points[${i}]: Each point in a LINESTRING needs an 'x' & 'y'`)
+                    }
+                    else {
+                        geomString += `${point.x} ${point.y},`
+                    }
+                })
+                
+                geomString = geomString.slice(0, -1) + ")"
+                
+            }
+        }
+        
         
         
         // More types

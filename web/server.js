@@ -1,5 +1,3 @@
-"use strict"
-
 
 global._ = require("lodash")
 global.express = require("express")

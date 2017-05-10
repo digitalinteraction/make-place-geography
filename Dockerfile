@@ -1,6 +1,9 @@
 FROM node:7.9-alpine
 
 
+EXPOSE 80
+
+
 RUN mkdir -p /app
 WORKDIR /app
 

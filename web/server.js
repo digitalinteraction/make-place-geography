@@ -9,8 +9,8 @@ const Utils = require("./utils")
 const geo = require('./geo')
 
 
-
-let utils = new Utils(process.env.SQL_URL)
+let sqlUrl = process.env.SQL_URL ||  `mysql://${process.env.SQL_USER}:${process.env.SQL_PASS}@${process.env.SQL_HOST}/${process.env.SQL_NAME}`;
+let utils = new Utils(sqlUrl)
 
 
 global.sql = function(string, ...values) {
@@ -43,10 +43,6 @@ console.log("- Starting server")
 let app = express()
 
 app.use(bodyParser.json())
-
-let sqlUrl = process.env.SQL_URL ||  `mysql://${process.env.SQL_USER}:${process.env.SQL_PASS}@${process.env.SQL_HOST}/${process.env.SQL_NAME}`;
-console.log('using mysql', sqlUrl);
-let pool = mysql.createPool(sqlUrl)
 
 
 // Hello world endpoint

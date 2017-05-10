@@ -44,7 +44,8 @@ let app = express()
 
 app.use(bodyParser.json())
 
-let pool = mysql.createPool(process.env.SQL_URL)
+let sqlUrl = process.env.SQL_URL ||  `mysql://${process.env.SQL_USER}:${process.env.SQL_PASS}@${process.env.SQL_HOST}/${process.env.SQL_NAME}`;
+let pool = mysql.createPool(sqlUrl)
 
 
 // Hello world endpoint

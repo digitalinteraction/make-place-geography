@@ -165,10 +165,9 @@ module.exports = function(utils) {
             }
         }
         
-        
         // Validate & parse linestring geometries
         if (geom.type === "LINESTRING") {
-            if (!geom.points || !_.isArray(geom.points) || geom.points.length === 0) {
+            if (!geom.points || !_.isArray(geom.points) || geom.points.length < 2) {
                 errors.push(`Please provide an array of points for your LINESTRING`)
             }
             else {
@@ -195,7 +194,6 @@ module.exports = function(utils) {
         
         // More types
         // ...
-        
         
         // If there were any errors, stop here
         if (errors.length > 0) { return utils.apiFail(res, errors) }

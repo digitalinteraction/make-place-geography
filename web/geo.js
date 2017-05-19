@@ -33,18 +33,16 @@ module.exports = function(utils) {
      *   ]
      * }
      */
-    router.get("/", (req, res) => {
+    router.get("/", async (req, res) => {
         
-        sql `select *, ST_GeometryType(geom) as 'type' from geo_data
-            where deployment_id=${req.deployment.id}`
-        .then(values => {
+        try {
+            let result = await sql `
+                select *, ST_GeometryType(geom) as 'type' from geo_data
+                where deployment_id=${req.deployment.id}`
             
-            utils.apiSuccess(res, values)
-        })
-        .catch(error => {
-            
-            utils.apiFail(res, error)
-        })
+            utils.apiSuccess(res, result)
+        }
+        catch (error) { utils.apiFail(res, error) }
     })
     
     
@@ -77,25 +75,24 @@ module.exports = function(utils) {
      *   }
      * }
      */
-    router.get("/:id", (req, res) => [
+    router.get("/:id", async (req, res) => {
         
-        sql `select *, ST_GeometryType(geom) as 'type' from geo_data
-            where deployment_id=${req.deployment.id}
-            and id=${req.params.id}`
-        .then(values => {
+        try {
+            let result = await sql `
+                select *, ST_GeometryType(geom) as 'type' from geo_data
+                where deployment_id=${req.deployment.id}
+                and id=${req.params.id}`
             
-            if (values.length === 0) {
+            if (result.length === 0) {
                 utils.apiFail(res, `geo_data '${req.params.id}' not found`)
             }
             else {
-                utils.apiSuccess(res, values[0])
+                utils.apiSuccess(res, result[0])
             }
-        })
-        .catch(error => {
-            
-            utils.apiFail(res, error)
-        })
-    ])
+        }
+        catch (error) { utils.apiFail(res, error) }
+    })
+    
     
     
     
@@ -122,24 +119,17 @@ module.exports = function(utils) {
      *   "data": 23
      * }
      */
-    router.post("/", (req, res) => {
+    router.post("/", async (req, res) => {
         
         // Build errors with the request
         let errors = []
         
-        
-        // Check the data_type was passed
-        if (!req.body.data_type) {
-            errors.push(`Please provide a 'data_type'`)
-        }
-        
-        // Check the geom was passed and is an object
-        if (!_.isObject(req.body.geom)) {
-            errors.push(`Please provide 'geom' as an object`)
-        }
+        // Check the data_type and geom were passed
+        utils.guard(errors, req.body.data_type, `Please provide a 'data_type'`)
+        utils.guard(errors, _.isObject(req.body.geom), `Please provide 'geom' as an object`)
         
         
-        // Fail & stop at this point if there are any errors
+        // Fail now if there were any errors
         if (errors.length > 0) { return utils.apiFail(res, errors) }
         
         
@@ -150,82 +140,71 @@ module.exports = function(utils) {
         
         
         // Check a valid geometry type was passed
-        if (!geom.type || !_.includes(allowedGeometries, geom.type)) {
-            errors.push(`Please provide a valid 'geom.type'`)
-        }
+        utils.guard(errors, geom.type && _.includes(allowedGeometries, geom.type),
+            `Please provide a valid 'geom.type'`
+        )
         
         
-        // Validate & parse point geometries
+        // Validate & parse point type geometries
         if (geom.type === "POINT") {
-            if (!geom.x || !geom.y) {
-                errors.push(`Please provide an 'x' & 'y' for your 'POINT' geometry`)
-            }
-            else {
-                geomString = `POINT(${geom.x} ${geom.y})`
-            }
+            utils.guard(errors, geom.x && geom.y, `Point needs an an 'x' & 'y'` )
+            geomString = `POINT(${geom.x} ${geom.y})`
         }
         
-        // Validate & parse linestring geometries
+        // Validate & parse linestring type geometries
         if (geom.type === "LINESTRING") {
-            if (!geom.points || !_.isArray(geom.points) || geom.points.length < 2) {
-                errors.push(`Please provide an array of points for your LINESTRING`)
-            }
-            else {
-                
-                geomString = `LINESTRING(`
+            
+            // Check the geom is an array with at least 2 points
+            utils.guard(errors, _.isArray(geom.points) && geom.points.length > 1,
+                `Please provide an array of points for your LINESTRING`
+            )
+            
+            if (errors.length == 0) {
                 
                 // Loop each point, checking it is a valid point
-                _.each(geom.points, (point, i) => {
-                    
-                    if (!point.x || !point.y) {
-                        errors.push(`geom.points[${i}]: Each point in a LINESTRING needs an 'x' & 'y'`)
-                    }
-                    else {
-                        geomString += `${point.x} ${point.y},`
-                    }
+                let pointStrings = _.map(geom.points, (point, i) => {
+                    utils.guard(errors, point.x && point.y, `geom.points[${i}] needs an 'x' and 'y'`)
+                    return `${point.x} ${point.y}`
                 })
                 
-                geomString = geomString.slice(0, -1) + ")"
-                
+                geomString = `LINESTRING(${ _.join(pointStrings, ',') })`;
             }
         }
-        
         
         
         // More types
         // ...
         
+        
         // If there were any errors, stop here
-        if (errors.length > 0) { return utils.apiFail(res, errors) }
+        if (errors.length) return utils.apiFail(res, errors)
         
         
-        
-        // Make sure the type exists
-        sql `select count(*) as 'count' from data_type
-            where id=${data_type} and deployment_id=${req.deployment.id}`
-        .then(value => {
+        try {
+            
+            // Query for a deployment with that id
+            let types = await sql `
+                select count(*) as 'count' from data_type
+                where id=${data_type} and deployment_id=${req.deployment.id}`
             
             // Fail if the type doesn't exist
-            if (value[0].count === 0) {
+            if (types[0].count === 0) {
                 throw `Invalid data_type '${data_type}'`
             }
             
-            // Insert the new geo_data into the database
-            return sql `insert into geo_data (geom, deployment_id, data_type_id) values (
-                ST_GeomFromText(${geomString}), ${req.deployment.id}, ${data_type}
-            )`
-        })
-        .then(values => {
+            // Insert a new record with the geometry string
+            let record = await sql `
+                insert into geo_data (geom, deployment_id, data_type_id) values (
+                ST_GeomFromText(${geomString}), ${req.deployment.id}, ${data_type})`
             
-            // If inserted, return the id of the data we created
-            utils.apiSuccess(res, values.insertId)
-        })
-        .catch(error => {
+            // Return the id of the new record
+            utils.apiSuccess(res, record.insertId);
+        }
+        catch (error) {
             
             // Return an error if it occured
-            utils.apiFail(res, error)
-        })
-        
+            utils.apiFail(res, error);
+        }
     })
     
     

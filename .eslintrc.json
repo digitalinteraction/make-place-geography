@@ -1,0 +1,23 @@
+{
+  "root": true,
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "rules": {
+    "no-undef": "error"
+  },
+  "globals": {
+    "express": true,
+    "_": true,
+    "__": true,
+    "Promise": true,
+    "i18n": true,
+    "moment": true,
+    "sql": true
+  }
+}

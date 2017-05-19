@@ -1,8 +1,8 @@
 
 global._ = require("lodash")
 global.express = require("express")
-global.mysql = require("mysql")
 
+const mysql = require("mysql")
 const bodyParser = require("body-parser")
 
 const Utils = require("./utils")

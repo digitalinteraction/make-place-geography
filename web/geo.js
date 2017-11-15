@@ -140,6 +140,7 @@ module.exports = function(utils) {
         
         
         // Check a valid geometry type was passed
+        // NOTE: There has to be at least 2 points as mysql won't store a single point in a string
         utils.guard(errors, geom.type && _.includes(allowedGeometries, geom.type),
             `Please provide a valid 'geom.type'`
         )

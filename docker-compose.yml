@@ -1,0 +1,36 @@
+version: '3'
+
+volumes:
+  database_data:
+    driver: local
+
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    links:
+      - mysql
+    volumes:
+      - ./web:/app/web
+      - ./docs:/app/docs
+      - ./logs:/app/logs
+      - ./test:/app/test
+    environment:
+      SQL_URL: mysql://user:secret@mysql/geo-api
+      NODE_ENV: development
+    command: npm run watch
+  
+  mysql:
+    image: mysql:latest
+    restart: unless-stopped
+    ports:
+      - 3306:3306
+    volumes:
+      - database_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: geo-api
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret

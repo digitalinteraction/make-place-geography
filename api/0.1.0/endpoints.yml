@@ -1,0 +1,17 @@
+---
+version: 0.1.0
+base: /
+groups:
+  - general
+  - geom
+---
+
+general:
+  base: /
+  name: General
+  endpoints: []
+
+geom:
+  base: /
+  name: Geometries
+  endpoints: []

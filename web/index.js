@@ -5,6 +5,7 @@ const Api = require('./Api')
 const Sql = require('./Sql')
 
 const makeGeoEndpoints = require('./endpoints/geo')
+const makeGeneralEndpoints = require('./endpoints/general')
 const makeSessionMiddleware = require('./middleware/session')
 
 ;(async () => {
@@ -20,9 +21,7 @@ const makeSessionMiddleware = require('./middleware/session')
   
   
   // ENDPOINT: general.hello
-  app.get('/', (req, res) => {
-    req.api.sendData('ok')
-  })
+  app.use('/', makeGeneralEndpoints(sql))
   
   
   // Add geo endpoints and verify with session middleware

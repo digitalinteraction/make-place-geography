@@ -1,0 +1,87 @@
+---
+version: 1.1.0
+base: /
+groups:
+  - general
+  - geo
+---
+
+
+general:
+  base: /
+  name: General
+  endpoints:
+  - id: hello
+    method: get
+    url: /
+    name: Hello, World
+    info: An endpoint to let you know everything is working
+    responses:
+    - name: Success
+      status: 200
+      body: hello.json
+
+
+geo:
+  base: /geo
+  name: Geometries
+  endpoints:
+  - id: index
+    method: get
+    url: /
+    name: Geo Index
+    info: An endpoint to list geometries you have access to
+    params:
+      api_key: string - You authentication key
+    responses:
+    - name: Success
+      status: 200
+      body: geoIndex.json
+    - name: Missing api_key
+      status: 401
+      body: missingKey.json
+    - name: Auth Failed
+      status: 401
+      body: authFailed.json
+  
+  - id: show
+    method: get
+    url: /:id
+    name: Geo Show
+    info: An endpoint to get a specific geometry
+    params:
+      api_key: string - You authentication key
+    responses:
+    - name: Success
+      status: 200
+      body: geoShow.json
+    - name: Missing api_key
+      status: 401
+      body: missingKey.json
+    - name: Auth Failed
+      status: 401
+      body: authFailed.json
+  
+  - id: create
+    method: post
+    url: /
+    name: Geo Create
+    info: An endpoint to create a new geometry
+    params:
+      api_key: string - You authentication key
+    body:
+      type: string - The type of geometry to add
+      geom: object - The geometry to add
+    responses:
+    - name: Success
+      status: 200
+      body: geoCreate.json
+    - name: Missing api_key
+      status: 401
+      body: missingKey.json
+    - name: Auth Failed
+      status: 401
+      body: authFailed.json
+    - name: Bad Request
+      status: 400
+      body: badCreate.json

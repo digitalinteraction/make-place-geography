@@ -13,8 +13,8 @@ build-master:
   tags:
     - dind
   script:
-    - VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
-    - echo $VERSION
+    - VERSION=$(docker run -it --rm --volume "${PWD}/package.json:/package.json" node:8-alpine node -e "console.log(require('/package.json').version)")
+     - echo $VERSION
     # - docker build --pull -t "$CI_REGISTRY_IMAGE" .
     # - docker push "$CI_REGISTRY_IMAGE"
   only:

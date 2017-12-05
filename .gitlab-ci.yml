@@ -13,8 +13,10 @@ build-master:
   tags:
     - dind
   script:
-    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
-    - docker push "$CI_REGISTRY_IMAGE"
+    - VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
+    - echo $VERSION
+    # - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    # - docker push "$CI_REGISTRY_IMAGE"
   only:
     - master
 

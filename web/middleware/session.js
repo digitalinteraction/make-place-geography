@@ -1,7 +1,14 @@
 const Api = require('../Api')
 
+/**
+ * Generates a middleware to fetch the api_key the client used and the realted deployment.
+ * If either isn't found, returns an authentication error and fails the request.
+ * @param  {[type]} sql [description]
+ * @return {[type]}     [description]
+ */
 module.exports = function(sql) {
   
+  // Use the api to make an error-handled middleware
   return Api.handleErrors(async (req, res, next) => {
     
     // Fail if theres no 'api_key' in the query parameters

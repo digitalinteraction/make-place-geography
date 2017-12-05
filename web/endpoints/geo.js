@@ -1,25 +1,20 @@
 const { Router } = require('express')
 const Api = require('../Api')
+const checkPerms = require('../middleware/checkPerms')
 
+// The geometries that can be created
 const allowedGeometries = [ 'POINT', 'LINESTRING' ]
 
+/** Utility to push an error if a condition is truthy, for improved readability */
 function pushErrorIf(errors, condition, message) {
-  if (condition) {
-    errors.push(message)
-  }
+  if (condition) { errors.push(message) }
 }
 
-function checkPerms(...codes) {
-  return async (req, res, next) => {
-    if (!codes.includes(req.apikey.type) && req.apikey.type !== 'ALL') {
-      res.api.sendFail(`You can't do that`, 401)
-    }
-    else {
-      next()
-    }
-  }
-}
-
+/**
+ * Creates an Express.Router with the geometry endpoints added to it
+ * @param  {SqlClient} sql An sql instance to perform queries with
+ * @return {express.Router}
+ */
 module.exports = function(sql) {
   
   let router = new Router()
@@ -28,6 +23,7 @@ module.exports = function(sql) {
   // ENDPOINT: geo.index
   router.get('/', checkPerms('READ'), Api.handleErrors(async (req, res) => {
     
+    // Send the result of the query, errors are caught by Api
     res.api.sendData(await sql`
       select *, ST_GeometryType(geom) as 'type' from geo_data
       where deployment_id=${req.deployment.id}
@@ -38,12 +34,14 @@ module.exports = function(sql) {
   // ENDPOINT: geo.show
   router.get('/:id', checkPerms('READ'), Api.handleErrors(async (req, res) => {
     
+    // Try to find the geometry
     let result = await sql`
       select *, ST_GeometryType(geom) as 'type' from geo_data
       where deployment_id=${req.deployment.id} and id=${req.params.id}`
     
+    // Return the first result, or a 404 if not found
     if (result.length === 0) {
-      res.api.sendFail(`geo_data '${req.params.id}' not found`)
+      res.api.sendFail(`geo_data '${req.params.id}' not found`, 404)
     }
     else {
       res.api.sendData(result[0])

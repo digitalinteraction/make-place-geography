@@ -57,6 +57,9 @@ geo:
     - name: Success
       status: 200
       body: geoShow.json
+    - name: Not Found
+      status: 404
+      body: geoNotFound.json
     - name: Missing api_key
       status: 401
       body: missingKey.json

@@ -1,6 +1,12 @@
+
+/**
+ * A utility to handle common api-like tasks, e.g. send formatted json
+ * responses or catching errors and reporting them in a standard way.
+ * @type {[type]}
+ */
 module.exports = class Api {
   
-  /** Generates middleware to add an api to the request & response */
+  /** Generates middleware to add an api to the request & response for later use */
   static middleware(name, version) {
     return (req, res, next) => {
       let api = new this(req, res, name, version)
@@ -10,6 +16,7 @@ module.exports = class Api {
     }
   }
   
+  /** Generates a middleware / request which will catch errors and report them using #sendFail */
   static handleErrors(block) {
     
     // If passed 2 args to the block, don't use the next param
@@ -35,7 +42,7 @@ module.exports = class Api {
     }
   }
   
-  /** Creates an new Api instance to handle a request */
+  /** Creates an new Api instance to handle a request and send api responses */
   constructor(req, res, name = null, version = null) {
     this.req = req
     this.res = res
@@ -67,16 +74,5 @@ module.exports = class Api {
       meta: this.makeMetaBlock(true, [], status),
       data: data
     })
-  }
-  
-  
-  /** Runs a block of async code and sends any errors as an api failure */
-  async catchErrors(asyncBlock) {
-    try {
-      await asyncBlock(this)
-    }
-    catch (error) {
-      this.sendFail(error.message)
-    }
   }
 }

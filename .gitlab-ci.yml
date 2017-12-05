@@ -16,7 +16,7 @@ build-master:
     - echo "${PWD}/package.json"
     - cat "${PWD}/package.json"
     - VERSION=$(docker run --rm --volume "${PWD}/package.json:/package.json" node:8-alpine node -e "console.log(require('/package.json').version)")
-     - echo $VERSION
+    - echo $VERSION
     # - docker build --pull -t "$CI_REGISTRY_IMAGE" .
     # - docker push "$CI_REGISTRY_IMAGE"
   only:

@@ -17,7 +17,7 @@ build-master:
         VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]')
         IMAGE_NAME="$CI_REGISTRY_IMAGE:$VERSION"
     - docker pull "$IMAGE_NAME" || exit 0
-    - docker build --pull -t "$IMAGE_NAME" .
+    - docker build -t "$IMAGE_NAME" .
     - docker push "$IMAGE_NAME"
   only:
     - master

@@ -31,7 +31,7 @@ geo:
     url: /
     name: Geo Index
     info: An endpoint to list geometries you have access to
-    params:
+    query:
       api_key: string - You authentication key
     responses:
     - name: Success
@@ -49,8 +49,10 @@ geo:
     url: /:id
     name: Geo Show
     info: An endpoint to get a specific geometry
-    params:
+    query:
       api_key: string - You authentication key
+    params:
+      id: int - The id of the geometry to find
     responses:
     - name: Success
       status: 200
@@ -67,7 +69,7 @@ geo:
     url: /
     name: Geo Create
     info: An endpoint to create a new geometry
-    params:
+    query:
       api_key: string - You authentication key
     body:
       type: string - The type of geometry to add

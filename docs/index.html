@@ -1,4 +1,4 @@
-<!DOCTYPE html><html><head><title>Make Place Geo</title><link rel="shortcut icon" href="img/favicon.png"><link rel="stylesheet" href="css/styles.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700|Noto+Sans:400,700|Space+Mono"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#009787"><meta property="og:title" content="Make Place Geo"><meta property="og:description" content="An API for the storage and retrieval of geographical data, build for the MakePlace platform"><meta property="og:locale" content="en_GB"><meta property="og:site_name" content="Make Place Geo"></head><body><div id="webapp"><header><span class="title">Make Place Geo</span><label class="right"><span class="text">Version</span><select class="version-picker"><option value="1.1.0">1.1.0</option></select></label></header><div class="version" id="1.1.0"><aside class="overview"><h2>Endpoints</h2><section class="group" id="link-general"><h4>General</h4><ul class="endpoint-list"><li class="endpoint" id="link-general.hello" data-endpoint="general.hello">Hello, World</li></ul></section><section class="group" id="link-geo"><h4>Geometries</h4><ul class="endpoint-list"><li class="endpoint" id="link-geo.index" data-endpoint="geo.index">Geo Index</li><li class="endpoint" id="link-geo.show" data-endpoint="geo.show">Geo Show</li><li class="endpoint" id="link-geo.create" data-endpoint="geo.create">Geo Create</li></ul></section></aside><main><section class="info container"><h1 class="title">Make Place Geo &ndash;  <span class="version-name">1.1.0</span></h1><p class="subtitle">An API for the storage and retrieval of geographical data, build for the MakePlace platform</p></section><section class="group" id="general"><h2>General</h2><div class="endpoint-list"><article class="endpoint" id="1.1.0.general.hello"><h3><span class="method get">get</span><span class="url">/</span><span class="name">Hello, World</span></h3><div class="details"><p class="info">An endpoint to let you know everything is working</p><tabset class="arguements"></tabset><tabset class="responses"><tab name="Success (200)"><pre>{
+<!DOCTYPE html><html><head><title>Make Place Geo API</title><link rel="shortcut icon" href="img/favicon.png"><link rel="stylesheet" href="css/styles.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,700|Noto+Sans:400,700|Space+Mono"><meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no"><meta name="theme-color" content="#009787"><meta property="og:title" content="Make Place Geo API"><meta property="og:description" content="An API for the storage and retrieval of geographical data, build for the MakePlace platform"><meta property="og:locale" content="en_GB"><meta property="og:site_name" content="Make Place Geo API"></head><body><div id="webapp"><header><span class="title">Make Place Geo API</span><label class="right"><span class="text">Version</span><select class="version-picker"><option value="1.1.0">1.1.0</option></select></label></header><div class="version" id="1.1.0"><aside class="overview"><h2>Endpoints</h2><section class="group" id="link-general"><h4>General</h4><ul class="endpoint-list"><li class="endpoint" id="link-general.hello" data-endpoint="general.hello">Hello, World</li></ul></section><section class="group" id="link-geo"><h4>Geometries</h4><ul class="endpoint-list"><li class="endpoint" id="link-geo.index" data-endpoint="geo.index">Geo Index</li><li class="endpoint" id="link-geo.show" data-endpoint="geo.show">Geo Show</li><li class="endpoint" id="link-geo.create" data-endpoint="geo.create">Geo Create</li></ul></section></aside><main><section class="info container"><h1 class="title">Make Place Geo API &ndash;  <span class="version-name">1.1.0</span></h1><p class="subtitle">An API for the storage and retrieval of geographical data, build for the MakePlace platform</p></section><section class="group" id="general"><h2>General</h2><div class="endpoint-list"><article class="endpoint" id="1.1.0.general.hello"><h3><span class="method get">get</span><span class="url">/</span><span class="name">Hello, World</span></h3><div class="details"><p class="info">An endpoint to let you know everything is working</p><tabset class="arguements"></tabset><tabset class="responses"><tab name="Success (200)"><pre>{
   &quot;meta&quot;: {
     &quot;success&quot;: true,
     &quot;messages&quot;: [],
@@ -6,5 +6,149 @@
     &quot;version&quot;: &quot;1.1.0&quot;
   },
   &quot;data&quot;: &quot;ok&quot;
-}</pre></tab></tabset></div></article></div></section><section class="group" id="geo"><h2>Geometries</h2><div class="endpoint-list"><article class="endpoint" id="1.1.0.geo.index"><h3><span class="method get">get</span><span class="url">/geo/</span><span class="name">Geo Index</span></h3><div class="details"><p class="info">An endpoint to list geometries you have access to</p><tabset class="arguements"><tab name="Params"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">api_key</td><td class="type">string</td><td class="info">You authentication key</td></tr></tbody></table></div></tab></tabset><tabset class="responses"><tab name="Success (200)"><pre>{}</pre></tab><tab name="Missing api_key (401)"><pre>{}</pre></tab><tab name="Auth Failed (401)"><pre>{}</pre></tab></tabset></div></article><article class="endpoint" id="1.1.0.geo.show"><h3><span class="method get">get</span><span class="url">/geo/:id</span><span class="name">Geo Show</span></h3><div class="details"><p class="info">An endpoint to get a specific geometry</p><tabset class="arguements"><tab name="Params"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">api_key</td><td class="type">string</td><td class="info">You authentication key</td></tr></tbody></table></div></tab></tabset><tabset class="responses"><tab name="Success (200)"><pre>{}</pre></tab><tab name="Missing api_key (401)"><pre>{}</pre></tab><tab name="Auth Failed (401)"><pre>{}</pre></tab></tabset></div></article><article class="endpoint" id="1.1.0.geo.create"><h3><span class="method post">post</span><span class="url">/geo/</span><span class="name">Geo Create</span></h3><div class="details"><p class="info">An endpoint to create a new geometry</p><tabset class="arguements"><tab name="Params"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">api_key</td><td class="type">string</td><td class="info">You authentication key</td></tr></tbody></table></div></tab><tab name="Body"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">type</td><td class="type">string</td><td class="info">The type of geometry to add</td></tr><tr><td class="name">geom</td><td class="type">object</td><td class="info">The geometry to add</td></tr></tbody></table></div></tab></tabset><tabset class="responses"><tab name="Success (200)"><pre>{}</pre></tab><tab name="Missing api_key (401)"><pre>{}</pre></tab><tab name="Auth Failed (401)"><pre>{}</pre></tab><tab name="Bad Request (400)"><pre>{}</pre></tab></tabset></div></article></div></section></main></div><footer>Make Place Geo
+}</pre></tab></tabset></div></article></div></section><section class="group" id="geo"><h2>Geometries</h2><div class="endpoint-list"><article class="endpoint" id="1.1.0.geo.index"><h3><span class="method get">get</span><span class="url">/geo/</span><span class="name">Geo Index</span></h3><div class="details"><p class="info">An endpoint to list geometries you have access to</p><tabset class="arguements"><tab name="Query"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">api_key</td><td class="type">string</td><td class="info">You authentication key</td></tr></tbody></table></div></tab></tabset><tabset class="responses"><tab name="Success (200)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: true,
+    &quot;messages&quot;: [],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: [
+    {
+      &quot;id&quot;: 1,
+      &quot;created&quot;: &quot;2017-12-04T18:08:06.000Z&quot;,
+      &quot;modified&quot;: &quot;2017-12-04T18:08:06.000Z&quot;,
+      &quot;geom&quot;: [
+        {
+          &quot;x&quot;: 54.972087,
+          &quot;y&quot;: -1.617035
+        },
+        {
+          &quot;x&quot;: 54.971974,
+          &quot;y&quot;: -1.61473
+        }
+      ],
+      &quot;deployment_id&quot;: 1,
+      &quot;data_type_id&quot;: 1,
+      &quot;api_key_id&quot;: 3,
+      &quot;type&quot;: &quot;LINESTRING&quot;
+    },
+    {
+      &quot;id&quot;: 2,
+      &quot;created&quot;: &quot;2017-12-05T08:39:12.000Z&quot;,
+      &quot;modified&quot;: &quot;2017-12-05T08:39:12.000Z&quot;,
+      &quot;geom&quot;: {
+        &quot;x&quot;: 54.973877,
+        &quot;y&quot;: -1.613101
+      },
+      &quot;deployment_id&quot;: 1,
+      &quot;data_type_id&quot;: 1,
+      &quot;api_key_id&quot;: 3,
+      &quot;type&quot;: &quot;POINT&quot;
+    }
+  ]
+}</pre></tab><tab name="Missing api_key (401)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Please provide an 'api_key'&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab><tab name="Auth Failed (401)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Authentication Failed&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab></tabset></div></article><article class="endpoint" id="1.1.0.geo.show"><h3><span class="method get">get</span><span class="url">/geo/:id</span><span class="name">Geo Show</span></h3><div class="details"><p class="info">An endpoint to get a specific geometry</p><tabset class="arguements"><tab name="Params"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">id</td><td class="type">int</td><td class="info">The id of the geometry to find</td></tr></tbody></table></div></tab><tab name="Query"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">api_key</td><td class="type">string</td><td class="info">You authentication key</td></tr></tbody></table></div></tab></tabset><tabset class="responses"><tab name="Success (200)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: true,
+    &quot;messages&quot;: [],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: {
+    &quot;id&quot;: 18,
+    &quot;created&quot;: &quot;2017-12-05T08:39:12.000Z&quot;,
+    &quot;modified&quot;: &quot;2017-12-05T08:39:12.000Z&quot;,
+    &quot;geom&quot;: {
+      &quot;x&quot;: 54.973877,
+      &quot;y&quot;: -1.613101
+    },
+    &quot;deployment_id&quot;: 1,
+    &quot;data_type_id&quot;: 1,
+    &quot;api_key_id&quot;: 3,
+    &quot;type&quot;: &quot;POINT&quot;
+  }
+}</pre></tab><tab name="Missing api_key (401)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Please provide an 'api_key'&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab><tab name="Auth Failed (401)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Authentication Failed&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab></tabset></div></article><article class="endpoint" id="1.1.0.geo.create"><h3><span class="method post">post</span><span class="url">/geo/</span><span class="name">Geo Create</span></h3><div class="details"><p class="info">An endpoint to create a new geometry</p><tabset class="arguements"><tab name="Query"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">api_key</td><td class="type">string</td><td class="info">You authentication key</td></tr></tbody></table></div></tab><tab name="Body"><div class="args-table"><table><thead><tr><th class="name">name</th><th class="type">type</th><th class="info">description</th></tr></thead><tbody><tr><td class="name">type</td><td class="type">string</td><td class="info">The type of geometry to add</td></tr><tr><td class="name">geom</td><td class="type">object</td><td class="info">The geometry to add</td></tr></tbody></table></div></tab></tabset><tabset class="responses"><tab name="Success (200)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: true,
+    &quot;messages&quot;: [],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: 18
+}</pre></tab><tab name="Missing api_key (401)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Please provide an 'api_key'&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab><tab name="Auth Failed (401)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Authentication Failed&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab><tab name="Bad Request (400)"><pre>{
+  &quot;meta&quot;: {
+    &quot;success&quot;: false,
+    &quot;messages&quot;: [
+      &quot;Please provide a 'data_type'&quot;,
+      &quot;Please provide 'geom' as an object&quot;,
+      &quot;Please provide a valid 'geom.type'&quot;,
+      &quot;Point needs an an 'x' &amp; 'y'&quot;,
+      &quot;Please provide an array of points for your LINESTRING&quot;,
+      &quot;geom.points[n] needs an 'x' and 'y'&quot;
+    ],
+    &quot;name&quot;: &quot;MakePlace Geo&quot;,
+    &quot;version&quot;: &quot;1.1.0&quot;
+  },
+  &quot;data&quot;: null
+}</pre></tab></tabset></div></article></div></section></main></div><footer>Make Place Geo API
  &ndash;  <a href="/spec.json">View Spec</a> &ndash;  <span>Made with  <a href="https://github.com/robb-j/ocelot">Ocelot</a></span></footer></div><script type="text/javascript" src="js/app.js"></script></body></html>

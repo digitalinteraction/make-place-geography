@@ -1,3 +1,16 @@
 {
-  
+  "meta": {
+    "success": false,
+    "messages": [
+      "Please provide a 'data_type'",
+      "Please provide 'geom' as an object",
+      "Please provide a valid 'geom.type'",
+      "Point needs an an 'x' & 'y'",
+      "Please provide an array of points for your LINESTRING",
+      "geom.points[n] needs an 'x' and 'y'"
+    ],
+    "name": "MakePlace Geo",
+    "version": "1.1.0"
+  },
+  "data": null
 }

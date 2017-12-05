@@ -18,6 +18,7 @@ const makeSessionMiddleware = require('./middleware/session')
   // General middleware
   app.use(bodyParser.json())
   app.use(Api.middleware('MakePlace Geo', process.env.npm_package_version))
+  app.use('/docs', express.static('docs'))
   
   
   // ENDPOINT: general.hello

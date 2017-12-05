@@ -2,33 +2,34 @@
 # Official docker image.
 image: docker:latest
 
-#services:
-#  - docker:dind
+services:
+  - docker:dind
 
 before_script:
   - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
 build-master:
   stage: build
-  tags:
-    - dind
   script:
-    - >
-        VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]');
-        IMAGE_NAME="$CI_REGISTRY_IMAGE:$VERSION";
-        echo $IMAGE_NAME;
-    #- docker pull "$IMAGE_NAME" || exit 0
-    #- docker build -t "$IMAGE_NAME" .
-    #- docker push "$IMAGE_NAME"
+    - docker build --pull -t "$CI_REGISTRY_IMAGE" .
+    - docker push "$CI_REGISTRY_IMAGE"
   only:
     - master
 
 build:
   stage: build
-  tags:
-    - dind
   script:
     - docker build --pull -t "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
     - docker push "$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
   except:
     - master
+
+build-version:
+  state: build
+  when: manual
+  script:
+    - >
+        VERSION=$(cat package.json | grep version | head -1 | awk -F: '{ print $2 }' | sed 's/[",]//g' | tr -d '[[:space:]]');
+    - IMAGE_NAME="$CI_REGISTRY_IMAGE:$VERSION";
+    - docker build --pull -t "$IMAGE_NAME" .
+    - docker push "$IMAGE_NAME"

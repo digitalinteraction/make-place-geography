@@ -15,6 +15,7 @@ CREATE TABLE `data_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `created` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `modified` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `ref` int(11) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT '',
   `description` mediumtext,
   `deployment_id` int(11) NOT NULL,

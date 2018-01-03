@@ -67,3 +67,4 @@ Api Keys must be created manually right now, ask your nearest administrator!
 | `SQL_PASS` | The sql user's password, if not using `SQL_URL` |
 | `SQL_HOST` | The sql host, if not using `SQL_URL` |
 | `SQL_NAME` | The sql database name, if not using `SQL_URL` |
+| `API_PORT` | The port the api runs on, default: 3000 |

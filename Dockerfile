@@ -5,10 +5,10 @@ WORKDIR /app
 
 VOLUME /app/logs
 
-COPY package.json /app
-RUN npm install --silent --production
+COPY ["package.json", "package-lock.json", "/app/"]
+RUN npm ci --production > /dev/null
 
 COPY web /app/web
 COPY docs /app/docs
 
-CMD npm start
+CMD [ "npm", "start", "-s" ]

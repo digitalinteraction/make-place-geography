@@ -6,7 +6,7 @@ WORKDIR /app
 VOLUME /app/logs
 
 COPY ["package.json", "package-lock.json", "/app/"]
-RUN npm ci --production > /dev/null
+RUN npm install --silent --production
 
 COPY web /app/web
 COPY docs /app/docs
